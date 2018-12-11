@@ -52,15 +52,6 @@ if (message.content.startsWith(prefix + 'setwatching')) {
 }
 });
 
- client.on('message', message => {
-              if (!message.channel.guild) return;
-      if(message.content == prefix + 'اعضاء')
-      if(!message.member.hasPermission('ADMINISTRATOR')) return;
-      var IzRo = new Discord.RichEmbed()
-      .addField('عدد اعضاء السيرفر',`${message.guild.memberCount}`)
-      message.channel.send(IzRo);
-    });
-
 client.on('message', message => {
     if (message.content.startsWith("رابط")) {
         message.channel.createInvite({
