@@ -3157,7 +3157,7 @@ client.on('message',async message => {
                msg.edit('Restarting...');
             },2000);
         });
-        console.log(${message.author.tag} [ ${message.author.id} ] has restarted the bot.);
+        console.log(`${message.author.tag} [ ${message.author.id} ] has restarted the bot.`);
         console.log(Restarting..);
         setTimeout(() => {
             client.destroy();
