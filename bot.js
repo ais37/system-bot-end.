@@ -17,7 +17,6 @@ const moment = require('moment');
 var antispam = require("anti-spam");
 const devs = ['439102535693762582']; // ايدي الاشخاص اللي تريدهم يغيرون الستريم والاسم والصورة والرستارت
 var prefix = "-"; // برفكس كل الاوامر تقريباً
-const prefix = "-";  //برفكس الميوزك
 const adminprefix = "-"  // برفكس الستريم وتغيير الصورة والاسم
 
 client.on('ready', () => {
