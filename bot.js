@@ -14,7 +14,6 @@ const ytdl = require('ytdl-core');
 const gif = require("gif-search");
 const googl = require('goo.gl');
 const moment = require('moment');
-var antispam = require("anti-spam");
 const devs = ['439102535693762582']; // ايدي الاشخاص اللي تريدهم يغيرون الستريم والاسم والصورة والرستارت
 var prefix = "-"; // برفكس كل الاوامر تقريباً
 const adminprefix = "-"  // برفكس الستريم وتغيير الصورة والاسم
