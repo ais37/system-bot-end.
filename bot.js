@@ -12,7 +12,6 @@ const youtube = new YouTube("AIzaSyAdORXg7UZUo7sePv97JyoDqtQVi3Ll0b8");
 const queue = new Map();
 const ytdl = require('ytdl-core');
 const gif = require("gif-search");
-const client = new Discord.Client({disableEveryone: true});
 const googl = require('goo.gl');
 const moment = require('moment');
 var antispam = require("anti-spam");
