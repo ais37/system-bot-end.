@@ -3158,7 +3158,6 @@ client.on('message',async message => {
             },2000);
         });
         console.log(`${message.author.tag} [ ${message.author.id} ] has restarted the bot.`);
-        console.log(Restarting..);
         setTimeout(() => {
             client.destroy();
             client.login('process.env.BOT_TOKEN');
