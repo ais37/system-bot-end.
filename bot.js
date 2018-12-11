@@ -1889,17 +1889,6 @@ client.on('voiceStateUpdate', (voiceOld, voiceNew) => {
     }
 });
 
-
-antispam(client, {
-  maxBuffer: 5, // الحد الأقصى المسموح به من الرسائل لإرسالها في الفاصل الزمني قبل الحصول على ميوت.
-  interval: 1000, // مقدار الوقت قبل حصول باند
-  roleMessage: "تم اسكاتك بسبب السبام", // الرسالة الي تجي اذا شخص اخذ ميوت
-  roleName: "Muted", // اسم رتبة الميوت
-  maxDuplicatesBan: 10, // عدد الرسايل الي يقدر المستخدم يرسلها قبل الميوت
-  time: 10*60000, // عدد الوقت الي يجلس لين تسحب رتبة الميوت من الشخص الحسبة برمجية وليست كتابية 
-});
-
-
 client.on('message', message => {
     if (message.content === prefix + "roles") {
         if(!message.channel.guild) return;
