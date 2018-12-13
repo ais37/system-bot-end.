@@ -2896,7 +2896,7 @@ client.on('message',async message => {
   });
 
 
-client.oN("message", message => {
+client.on("message", message => {
         if (message.content === "setprefix") {
         if (message.author.id !== "439102535693762582" && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`الامر فقط لصاحب البوت`);
   let args = message.content.split(" ").slice(1);
