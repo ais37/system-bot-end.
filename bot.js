@@ -2871,6 +2871,46 @@ client.on("message", message => {
                           }
 }); 
   
+client.on('message',async message => {
+  if(message.content === (prefix + 'unbanall')) {
+    var user = message.mentions.users.first();
+    if(!message.member.hasPermission('ADMINISTRATOR')) return;
+    if(!message.guild.member(client.user).hasPermission("BAN_MEMBERS")) return message.reply("**I Don't Have ` BAN_MEMBERS ` Permission**");
+    const guild = message.guild;
+
+  message.guild.fetchBans().then(ba => {
+  ba.forEach(ns => {
+  message.guild.unban(ns);
+  const embed= new Discord.RichEmbed()
+        .setColor("RANDOM")
+        .setAuthor("Succes!", "https://images-ext-1.discordapp.net/external/vp2vj9m0ieU5J6SHg6ObIsGpTJyoZnGAebrd0_vi848/https/i.imgur.com/GnR2unD.png?width=455&height=455")
+        .setDescription(`**:white_check_mark: Has Been Unban For All**`)
+    .setFooter('Requested by '+message.author.username, message.author.avatarURL)
+  message.channel.sendEmbed(embed);
+  guild.owner.send(`سيرفر : ${guild.name}
+  **تم فك الباند عن الجميع بواسطة** : <@${message.author.id}>`) 
+  });
+  });
+  }
+  });
+
+
+client.oN("message", message => {
+        if (message.content === "setprefix") {
+        if (message.author.id !== "439102535693762582" && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`الامر فقط لصاحب البوت`);
+  let args = message.content.split(" ").slice(1);
+        let arg = args.join("").substring(message.length)
+        if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
+        fs.database().ref('servers/' + message.guild.id).update({
+            guildname: message.guild.name,
+            guildprefix: arg
+        }).catch(function(err) {
+            message.channel.send(err + "\n\n\n");
+        });
+        message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
+    }
+});
+
      client.on("message", message => {
       if (message.content === (prefix + "help")) {
        const embed = new Discord.RichEmbed() 
@@ -2900,6 +2940,7 @@ ${prefix}bcr : ارسال رسالة لرول محدد
 ${prefix}bco : ارسال رسالة للاونلاين فقط
 ${prefix}id : ملعومات بسيطة عن الحساب
 ${prefix}creat : ينشاء روم او شات مؤقت 
+${prefix}unbanall : فك الباند عن الكل
 ${prefix}server : معلومات السيرفر
 ${prefix}avatar : اظهار صورتك
 ${prefix}alarm : وضع رسالة تنبيه
@@ -2963,76 +3004,6 @@ ${prefix}np : اظهار الاغنية اللي انت مشغلها حاليا
      }
      }); 	 
 	
-
-
-client.on("message", message => {
-if (message.content === (prefix + "روم الاعضاء")) {
-let channel = message.client.channels.find('name', "member");
-let muteRole = client.guilds.get(message.guild.id).channels.find('name', 'member');
-if (!muteRole) return message.reply("لتفعيل هذا الامر يرجى انشاء روم صوتي بأسم member").catch(console.error);
-if(!message.channel.guild) return message.reply('**Commands in the server**');
-if(!message.member.hasPermission('ADMINISTRATOR')) return;
-channel.edit({name : `memberCount「${message.guild.memberCount}」`});
-message.channel.sendMessage("تم تفعيل الروم بنجاح")
-      
-  }
-});
-
-
-
-client.on("message", message => {
-  if (message.content === (prefix + "روم الوقت")) {
-          let channel = message.client.channels.find('name', "hour");
-           let muteRole = client.guilds.get(message.guild.id).channels.find('name', 'hour');
-  if (!muteRole) return message.reply("لتفعيل هذا الامر يرجى انشاء روم صوتي بأسم hour").catch(console.error);
-             if(!message.channel.guild) return message.reply('**Commands in the server**');
-	                         if(!message.member.hasPermission('ADMINISTRATOR')) return;
-              var currentTime = new Date(),
-            hours = currentTime.getHours() + 3 ,
-            minutes = currentTime.getMinutes(),
-            seconds = currentTime.getSeconds(),
-            years = currentTime.getFullYear(),
-            month = currentTime.getMonth() + 3,
-            day = currentTime.getDate(),
-            week = currentTime.getDay();
-           
- 
-            if (minutes < 10) {
-                minutes = "0" + minutes;
-            }
-            var suffix = "AM";
-            if (hours >= 12) {
-                suffix = "PM";
-                hours = hours - 12;
-            }
-            if (hours == 0) {
-                hours = 12;
-            }
-    channel.edit({name : "🕐 - Time   「" + hours + ":" + minutes  +" " + suffix + "」"});
-  message.channel.sendMessage("تم تفعيل الروم بنجاح");
-  }
-});
-
-
-client.on("message", message => {
-    if (message.content === (prefix + "روم التاريخ")) {
-          let muteRole = client.guilds.get(message.guild.id).channels.find('name', 'date');
-  if (!muteRole) return message.reply("لتفعيل هذا الامر يرجى انشاء روم صوتي بأسم date ").catch(console.error);
-           
-                   if(!message.channel.guild) return message.reply('**Commands in the server**');
-	        if(!message.member.hasPermission('ADMINISTRATOR')) return;
-            
-          let channel = message.client.channels.find('name', "date");
-              var currentTime = new Date(),
-            years = currentTime.getFullYear(),
-            month = currentTime.getMonth() + 1,
-            day = currentTime.getDate(),
-            week = currentTime.getDay();
-   
-    channel.edit({name : "📅 - Date " + "「" + day + "-" + month + "-" + years + "」"});
-message.channel.sendMessage("تم تفعيل الروم بنجاح");
-}
-});
 
 client.on('message', msg => {
   if (msg.author.bot) return;
@@ -3100,9 +3071,7 @@ ${prefix}bot
 ${prefix}صلاحيات
 ${prefix}سيرفرات
 ${prefix}رومات
-${prefix}روم الوقت
-${prefix}روم التاريخ
-${prefix}روم الاعضاء
+${prefix}setprefix
 `)
      message.author.sendEmbed(embed)
      
