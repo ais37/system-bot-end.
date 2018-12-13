@@ -680,7 +680,7 @@ coll.first().delete()
 client.on('message', ra3d => {
                         let args = ra3d.content.split(" ").slice(1).join(" ")
 if(ra3d.content.startsWith(prefix + 'colorer')) {
-   if (!message.member.hasPermission("ADMINISTRATOR")) return;
+   if(!message.member.hasPermission("ADMINISTRATOR")) return;
     if(!args) return ra3d.channel.send('`يرجي اختيار كم لون `');
              if (!ra3d.member.hasPermission('MANAGE_ROLES')) return ra3d.channel.sendMessage('انت لا تمتلك الصلاحيات'); 
               ra3d.channel.send(`**✅ |Created __${args}__ Colors**`);
@@ -2563,8 +2563,7 @@ client.on('message', message => {
        .setAuthor(`${member.user.tag}`, member.user.avatarURL)
 	   .setThumbnail(memberavatar)
        .setColor('RANDOM')
-       .setDescription(`📥 <@${member.user.id}> دخل عضو للسيرفر\n\n`)
-       .addfield(`بواسطة دعوته تمت : <@${inviter.id}>`)     
+       .setDescription(`📥 <@${member.user.id}> دخل عضو للسيرفر\n\n`)    
    	   .setTimestamp();
      channel.send({embed:embed});
 });
@@ -2602,71 +2601,6 @@ Server Count: __${guild.memberCount}__**`)
 }); 
 	
 
-
-let ar = JSON.parse(fs.readFileSync(`./AutoRole.json`, `utf8`))
-
-
-client.on('guildMemberAdd', member => {
-  if(!ar[member.guild.id]) ar[member.guild.id] = {
-  onoff: 'Off',
-  role: 'Member'
-  }
-  if(ar[member.guild.id].onoff === 'Off') return;
-member.addRole(member.guild.roles.find(`name`, ar[member.guild.id].role)).catch(console.error)
-})
-
-client.on('message', message => {
-
-if(!message.guild) return
-  if(!ar[message.guild.id]) ar[message.guild.id] = {
-  onoff: 'Off',
-  role: 'Member'
-  }
-
-if(message.content.startsWith(prefix + `autorole`)) {
-  let perms = message.member.hasPermission(`MANAGE_ROLES`)
-
-  if(!perms) return message.reply(`You don't have permissions, required permission : Manage Roles.`)
-  let args = message.content.split(" ").slice(1)
-  if(!args.join(" ")) return message.reply(`${prefix}autorle toggle/setrole [ROLE NAME]`)
-  let state = args[0]
-  if(!state.trim().toLowerCase() == 'toggle' || !state.trim().toLowerCase() == 'setrole') return message.reply(`Please type a right state, ${prefix}modlogs toggle/setrole [ROLE NAME]`)
-    if(state.trim().toLowerCase() == 'toggle') {
-     if(ar[message.guild.id].onoff === 'Off') return [message.channel.send(`**The Autorole Is __𝐎𝐍__ !**`), ar[message.guild.id].onoff = 'On']
-     if(ar[message.guild.id].onoff === 'On') return [message.channel.send(`**The Autorole Is __𝐎𝐅𝐅__ !**`), ar[message.guild.id].onoff = 'Off']
-    }
-   if(state.trim().toLowerCase() == 'set') {
-   let newRole = message.content.split(" ").slice(2).join(" ")
-   if(!newRole) return message.reply(`${prefix}autorole setrole [ROLE NAME]`)
-     if(!message.guild.roles.find(`name`,newRole)) return message.reply(`I Cant Find This Role.`)
-    ar[message.guild.id].role = newRole
-     message.channel.send(`**The AutoRole Has Been Changed to ${newRole}.**`)
-   }
-         }
-
-if(message.content === prefix + 'info') {
-    let perms = message.member.hasPermission(`MANAGE_GUILD`)
-    if(!perms) return message.reply(`You don't have permissions.`)
-    var embed = new Discord.RichEmbed()
-
-.addField(`Autorole : :sparkles:  `, `
-
-State : __${ar[message.guild.id].onoff}__
-Role : __${ar[message.guild.id].role}__`)
-
-
-    .setColor(`BLUE`)
-    message.channel.send({embed})
-  }
-
-
-    fs.writeFile("./AutoRole.json", JSON.stringify(ar), (err) => {
-    if (err) console.error(err)
-  });
-
-
-})
-	
 	
 
 client.on('message', async msg => { 
@@ -2917,12 +2851,11 @@ message.guild.createChannel('log-mute', 'text');
 }
 });
 
-/*
-مسح
+
 client.on("message", message => {
             var args = message.content.substring(prefix.length).split(" ");
-            if (message.content.startsWith(prefix + "clear")) {
-   if(!message.member.hasPermission('MANAGE_MESSAGES')) return message.reply('⚠ | **ليس لديك صلاحيات**');
+            if (message.content.startsWith("مسح")) {
+   if(!message.member.hasPermission('MANAGE_MESSAGES')) return;
         var msg;
         msg = parseInt();
       
@@ -2937,7 +2870,6 @@ client.on("message", message => {
       }}).then(msg => {msg.delete(100000)});
                           }
 }); 
-*/
   
      client.on("message", message => {
       if (message.content === (prefix + "help")) {
@@ -3127,7 +3059,7 @@ client.on('message', msg => {
  
 client.on('message',async message => {
     if(message.content.startsWith(prefix + "restart")) {
-        if(message.author.id !== devs) return message.reply('لست صاحب البوت');
+        if(message.author.id !== 439102535693762582) return message.reply('لست صاحب البوت');
         message.channel.send('Restarting.').then(msg => {
             setTimeout(() => {
                msg.edit('Restarting..');
