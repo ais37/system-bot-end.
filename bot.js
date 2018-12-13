@@ -2894,23 +2894,6 @@ client.on('message',async message => {
   }
   });
 
-const db = fs.database();
-client.on("message", message => {
-        if (message.content === "setprefix") {
-        if (message.author.id !== "439102535693762582" && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`الامر فقط لصاحب البوت`);
-  let args = message.content.split(" ").slice(1);
-        let arg = args.join("").substring(message.length)
-        if (!arg) return message.channel.send(`Please add a prefix after command like \`\`${prefix}setprefix &\`\``);
-        fs.database().ref('servers/' + message.guild.id).update({
-            guildname: message.guild.name,
-            guildprefix: arg
-        }).catch(function(err) {
-            message.channel.send(err + "\n\n\n");
-        });
-        message.channel.send(`prefix updated ${arg} for ${message.guild.name}`);
-    }
-});
-
      client.on("message", message => {
       if (message.content === (prefix + "help")) {
        const embed = new Discord.RichEmbed() 
