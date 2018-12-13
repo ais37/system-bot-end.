@@ -14,7 +14,6 @@ const ytdl = require('ytdl-core');
 const gif = require("gif-search");
 const googl = require('goo.gl');
 const moment = require('moment');
-const db = fs.database();
 const devs = ['439102535693762582']; // ايدي الاشخاص اللي تريدهم يغيرون الستريم والاسم والصورة والرستارت
 var prefix = "-"; // برفكس كل الاوامر تقريباً
 const adminprefix = "-"  // برفكس الستريم وتغيير الصورة والاسم
@@ -2895,7 +2894,7 @@ client.on('message',async message => {
   }
   });
 
-
+const db = fs.database();
 client.on("message", message => {
         if (message.content === "setprefix") {
         if (message.author.id !== "439102535693762582" && !message.member.hasPermission("MANAGE_GUILD")) return message.channel.send(`الامر فقط لصاحب البوت`);
